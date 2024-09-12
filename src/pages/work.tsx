@@ -19,6 +19,8 @@ const data = {
 }
 
 
+const filters = ["ALL", "SHORT FILMS", "3D ANIMATION"];
+
 const Work = () => {
 
     const [activeTab, setActiveTab] = useState("ALL");
@@ -32,39 +34,24 @@ const Work = () => {
         />
         <Container className="min-h-[80vh]">
             <Typography variant="h3" wrapper="h1" className="mt-12 mb-4">My creations</Typography>
-            <div className="flex flex-row gap-4 mb-12">
-                <div
+            <div className="flex flex-row gap-4 mb-6 md:mb-12">
+                {filters.map((filter, index) => {
+                    return  <div
+                    key={index}
                     className={cn(
-                        activeTab === "ALL" ? "bg-blue-600 text-neutral-100" : "text-blue-600", '',
-                        'border-2 border-blue-600 cursor-pointer inline-block mt-6 py-3 px-8 rounded-full shadow-md hover:bg-blue-700 hover:text-neutral-100 transition-colors'
+                        activeTab === filter ? "bg-blue-600 text-neutral-100" : "text-blue-600", '',
+                        'border-2 border-blue-600 cursor-pointer inline-block mt-6 py-3 px-3 md:px-8 rounded-full shadow-md hover:bg-blue-700 hover:text-neutral-100 transition-colors'
                     )}
-                    onClick={() => setActiveTab("ALL")}
+                    onClick={() => setActiveTab(filter)}
                 >
-                    ALL
+                    {filter}
                 </div>
-
-                <div
-                    className={cn(
-                        activeTab === "SHORT FILMS" ? "bg-blue-600 text-neutral-100" : "text-blue-600", '',
-                        'border-2 border-blue-600 cursor-pointer inline-block mt-6 py-3 px-8 rounded-full shadow-md hover:bg-blue-700 hover:text-neutral-100 transition-colors'
-                    )}
-                    onClick={() => setActiveTab("SHORT FILMS")}
-                >
-                    SHORT FILMS
-                </div>
-
-                <div
-                    className={cn(
-                        activeTab === "3D ANIMATION" ? "bg-blue-600 text-white" : "text-blue-600", '',
-                        'border-2 border-blue-600 cursor-pointer inline-block mt-6 py-3 px-8 rounded-full shadow-md hover:bg-blue-700 hover:text-neutral-100 transition-colors'
-                    )}
-                    onClick={() => setActiveTab("3D ANIMATION")}
-                >
-                    3D ANIMATION
-                </div>
+                })}
+                
+            
             </div>
 
-            <div className="grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-12  md:gap-6">
                 {(activeTab === "ALL" || activeTab === "SHORT FILMS") && data.shortFilms.map((url, index) => {
                     return <div key={index} className="aspect-video my-4 col-span-12 sm:col-span-6 lg:col-span-4">
                         <iframe allowFullScreen src={url} className="w-full h-full rounded-lg shadow-sm"></iframe>

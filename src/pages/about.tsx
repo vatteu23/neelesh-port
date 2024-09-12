@@ -14,7 +14,7 @@ export default function About() {
                 description="Neelesh Reddy is an Unreal Engine generalist with a passion for creating immersive experiences."
             />
             <div className="min-h-screen   text-white p-8">
-                <div className="container mx-auto py-16 px-6 md:px-10">
+                <div className="container mx-auto py-6 px-6 md:px-10">
                  
                     {/* Main Content Section */}
                     <section className="flex flex-col md:flex-row items-center justify-between space-y-12 md:space-y-0 md:space-x-16">
