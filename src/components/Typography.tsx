@@ -15,7 +15,7 @@ interface TypographyProps {
 const Typography: React.FC<TypographyProps> = ({ variant, children, className, fontWeight, wrapper, color, offDarkMode }) => {
     const Tag = wrapper || variant;
 
-    let defaultClasses = offDarkMode?'':'text-neutral-800 dark:!text-neutral-50 transition-all duration-300 ease-in-out ';
+    let defaultClasses = offDarkMode?'':'text-neutral-800 transition-all duration-300 ease-in-out ';
     switch (variant) {
         case 'h1':
             defaultClasses += 'text-5xl md:text-6xl lg:text-7xl font-bold';
@@ -76,10 +76,10 @@ const Typography: React.FC<TypographyProps> = ({ variant, children, className, f
             defaultClasses += '';
             break;
         case 'light':
-            defaultClasses += ' !text-neutral-100 dark:!text-neutral-800 ';
+            defaultClasses += ' !text-neutral-100 ';
             break;
         case 'red':
-                defaultClasses += ' !text-customRed-500 dark:!text-customRed-500 ';
+                defaultClasses += ' !text-customRed-500';
                 break;
         default:
             break;

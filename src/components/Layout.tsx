@@ -1,6 +1,7 @@
 import React from 'react';
 import { Ubuntu_Mono } from "next/font/google";
 import Container from './Container';
+import Link from 'next/link';
 
 const inter = Ubuntu_Mono({ weight: ["400","700"], subsets: ["latin"] });
 
@@ -19,11 +20,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
                 <div className='top-0 sticky'>
                     <Container className=' w-full flex justify-between px-6 pt-3'>
-                        <a href='/' className='text-neutral-800 font-bold text-2xl pr-2'>NR</a>
+                        <Link href='/' className='text-neutral-800 font-bold text-2xl pr-2'>NR</Link>
                         <div className='flex items-center gap-x-4'>
-                            <a href='/' className='text-neutral-800 font-bold text-base p-2 '>Home</a>
-                            <a href='/about' className='text-neutral-800 font-bold text-base p-2 '>About</a>
-                            <a href='/work' className='text-neutral-800 font-bold text-base p-2'>Work</a>
+                        <Link href='/' className='text-neutral-800 font-bold text-base p-2 '>Home</Link>
+                        <Link href='/about' className='text-neutral-800 font-bold text-base p-2 '>About</Link>
+                        <Link href='/work' className='text-neutral-800 font-bold text-base p-2'>Work</Link>
                         </div>
                     </Container>
                 </div>
@@ -38,13 +39,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         <p className="text-gray-600">
                             Want to work together or chat about animation? Feel free to reach out!
                         </p>
-                        <a
+                        <Link
                             href="https://www.linkedin.com/in/neelesh-reddy-botta-3405291a6/"
                             target='_blank'
                             className="inline-block mt-4 text-blue-600 font-semibold hover:underline"
                         >
                             Get In Touch
-                        </a>
+                        </Link>
                     </section>
             </footer>
         </div>

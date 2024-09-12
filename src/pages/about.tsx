@@ -1,21 +1,21 @@
 // pages/about.js
+import HeadWithMetas from '@/components/HeadWithMetas';
 import Layout from '@/components/Layout';
 import Typography from '@/components/Typography';
+import Link from 'next/link';
 import React from 'react';
 
 export default function About() {
     return (
         <Layout>
+
+            <HeadWithMetas
+                title="Neelesh Reddy | Unreal Engine Generalist"
+                description="Neelesh Reddy is an Unreal Engine generalist with a passion for creating immersive experiences."
+            />
             <div className="min-h-screen   text-white p-8">
                 <div className="container mx-auto py-16 px-6 md:px-10">
-                    {/* Header Section */}
-                    {/* <section className="text-center mb-16">
-      
-          <p className="text-xl text-gray-600">
-            A passionate Full-Stack Developer with a focus on creating exceptional digital experiences.
-          </p>
-        </section> */}
-
+                 
                     {/* Main Content Section */}
                     <section className="flex flex-col md:flex-row items-center justify-between space-y-12 md:space-y-0 md:space-x-16">
                         {/* Profile Image */}
@@ -36,13 +36,13 @@ export default function About() {
                             </p>
 
 
-                            <a
+                            <Link
                                 href="https://www.linkedin.com/in/neelesh-reddy-botta-3405291a6/"
                                 target='_blank'
                                 className="inline-block mt-6 bg-blue-600 text-white py-3 px-8 rounded-full shadow-md hover:bg-blue-700 transition-colors"
                             >
                                 Let's Connect
-                            </a>
+                            </Link>
                         </div>
                     </section>
 
@@ -123,27 +123,27 @@ export default function About() {
                             <div className='mb-6'>
                                 <h2 className="text-2xl font-semibold text-gray-900">DIPLOMA IN COMPOSTING</h2>
                                 <p className="text-lg text-gray-600 leading-relaxed">
-                                MAYA ACADEMY OF ADVANCED CINEMATICS | 2018 - 2018
+                                    MAYA ACADEMY OF ADVANCED CINEMATICS | 2018 - 2018
                                 </p>
                             </div>
                             <div className='mb-6'>
                                 <h2 className="text-2xl font-semibold text-gray-900">BACHELOR OF FINE ARTS</h2>
                                 <p className="text-lg text-gray-600 leading-relaxed">
-                                Specialised in 3D Animation | KL University | 2019 - 2023
+                                    Specialised in 3D Animation | KL University | 2019 - 2023
                                 </p>
                             </div>
 
                             <div className='mb-6'>
                                 <h2 className="text-2xl font-semibold text-gray-900">ONTARIO COLLEGE GRADUATE CERTIFICATE</h2>
                                 <p className="text-lg text-gray-600 leading-relaxed">
-                                Seneca Polytechnic | 2024 - 2024
+                                    Seneca Polytechnic | 2024 - 2024
                                 </p>
                             </div>
 
                         </div>
                     </section>
                     {/* Footer Section */}
-                
+
                 </div>
             </div>
         </Layout>
