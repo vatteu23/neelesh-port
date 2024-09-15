@@ -27,10 +27,19 @@ export default function Home() {
               <Typography variant="h4" fontWeight="light" color="light">
                 An Unreal engine generalist
               </Typography>
-              <div className="aspect-video max-h-[600px] mx-auto mt-12">
-                <iframe allowFullScreen src={'https://player.vimeo.com/video/997955764?dnt=1&title=0&byline=0&portrait=0'} className="w-full h-full"></iframe>
-              </div>
-
+             
+              <div className="w-100 mt-12 mb-24"><div style={{
+                padding:'53.55% 0 0 0',
+                position:'relative'
+              }}><iframe src="https://fast.wistia.net/embed/iframe/aggng42mqe?videoFoam=false&amp;playerColor=262626"  allow="autoplay; fullscreen; picture-in-picture" allowFullScreen className="rounded-lg shadow-2xl"
+               style={{
+                position:'absolute',
+                top:0,
+                left:0,
+                width:'100%',
+                height:"105%"
+               }}></iframe></div></div>
+              
             </div>
           </Container>
         </div>
