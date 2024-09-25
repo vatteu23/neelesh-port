@@ -47,7 +47,7 @@ export default function About() {
                     </section>
 
                     {/* Highlight Section */}
-                    <section className="mt-24 p-8 rounded-lg shadow-lg bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-600 text-white">
+                    <section className="mt-24 p-8 rounded-lg shadow-lg bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-600  animate-gradient-x text-white">
                         <h2 className="text-3xl font-light mb-6 text-center">Key Highlights</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <div className="text-center">

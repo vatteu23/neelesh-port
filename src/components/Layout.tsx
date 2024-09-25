@@ -20,7 +20,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
                 <div className='top-0 sticky'>
                     <Container className=' w-full flex justify-between px-6 pt-3'>
-                        <Link href='/' className='text-neutral-800 font-bold text-2xl pr-2'>NR</Link>
+                        <Link href='/' className='text-neutral-800 font-bold text-2xl pr-2'>
+                            <img src='/images/logo.svg' alt='Neelesh Reddy' className='w-12 h-12' />
+                        </Link>
                         <div className='flex items-center gap-x-4'>
                         <Link href='/' className='text-neutral-800 font-bold text-base p-2 '>Home</Link>
                         <Link href='/about' className='text-neutral-800 font-bold text-base p-2 '>About</Link>
