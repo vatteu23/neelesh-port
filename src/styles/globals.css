@@ -2,4 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Custom scrollbar styling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+}
+
+@layer components {
+  /* Focus states for better accessibility using PEBBLE colors */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-pebble-medium focus:ring-offset-2;
+  }
+  
+  /* Professional button base using PEBBLE colors */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-semibold transition-all duration-200 transform focus-ring;
+  }
+  
+  /* Professional card styling using PEBBLE colors */
+  .card {
+    @apply bg-white border border-pebble-light/30 rounded-2xl;
+  }
+  
+  /* PEBBLE specific button variants */
+  .btn-pebble-primary {
+    @apply bg-pebble-dark text-white hover:bg-pebble-dark/90 border-2 border-pebble-dark hover:border-pebble-dark/90;
+  }
+  
+  .btn-pebble-secondary {
+    @apply bg-pebble-light text-pebble-dark hover:bg-pebble-light/80 border-2 border-pebble-light hover:border-pebble-light/80;
+  }
+  
+  .btn-pebble-outline {
+    @apply bg-transparent text-pebble-dark hover:bg-pebble-lighter border-2 border-pebble-medium hover:border-pebble-dark;
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out;
+  }
+  
+  /* Typography enhancements */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Monospace styling utilities */
+  .mono-accent {
+    @apply font-mono text-sm tracking-wider uppercase font-medium;
+  }
+  
+  .mono-badge {
+    @apply font-mono text-xs px-3 py-1 bg-stone-100 border border-stone-300/50 rounded-md tracking-wide;
+  }
+  
+  .mono-section-header {
+    @apply font-mono text-xs tracking-[0.2em] uppercase font-bold text-stone-500;
+  }
+  
+  /* PEBBLE color utilities */
+  .bg-pebble-gradient {
+    @apply bg-gradient-to-r from-pebble-light via-pebble-light to-pebble-lighter;
+  }
+  
+  .bg-pebble-gradient-dark {
+    @apply bg-gradient-to-r from-pebble-medium via-pebble-dark to-pebble-dark;
+  }
+}
+
 
