@@ -25,56 +25,42 @@ const formatTime = (seconds: number): string => {
 const CustomVideoPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showControls, setShowControls] = useState(true);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const lastClickTime = useRef<number>(0);
 
+  // Debug component mount
   useEffect(() => {
-    let hideControlsTimer: NodeJS.Timeout;
-
-    const resetHideTimer = () => {
-      setShowControls(true);
-      clearTimeout(hideControlsTimer);
-      hideControlsTimer = setTimeout(() => {
-        if (isPlaying) setShowControls(false);
-      }, 3000);
-    };
-
-    const handleMouseMove = () => resetHideTimer();
-    const handleMouseLeave = () => {
-      if (isPlaying) setShowControls(false);
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("mousemove", handleMouseMove);
-      container.addEventListener("mouseleave", handleMouseLeave);
-    }
-
-    return () => {
-      clearTimeout(hideControlsTimer);
-      if (container) {
-        container.removeEventListener("mousemove", handleMouseMove);
-        container.removeEventListener("mouseleave", handleMouseLeave);
-      }
-    };
-  }, [isPlaying]);
+    console.log("CustomVideoPlayer mounted");
+    console.log("Initial state - isReady:", isReady, "isLoading:", isLoading);
+  }, []);
 
   // Initialize player when iframe loads
   useEffect(() => {
     const iframe = iframeRef.current;
-    if (!iframe) return;
+    if (!iframe) {
+      console.log("No iframe found");
+      return;
+    }
+
+    console.log("Setting up iframe event listeners");
+    console.log("Current state - isReady:", isReady, "isLoading:", isLoading);
 
     const handleLoad = () => {
+      console.log("Iframe load event fired");
       // Wait a bit for the player to fully initialize
       setTimeout(() => {
+        console.log("Vimeo player loaded, initializing...");
         setIsReady(true);
+        setIsLoading(false); // Ensure loading is false
+
         // Set initial volume to ensure audio is enabled
         iframe.contentWindow?.postMessage(
           '{"method":"setVolume","value":1}',
@@ -86,8 +72,29 @@ const CustomVideoPlayer = () => {
           '{"method":"getDuration"}',
           "https://player.vimeo.com"
         );
+
+        // Add event listeners for player state
+        iframe.contentWindow?.postMessage(
+          '{"method":"addEventListener","value":"play"}',
+          "https://player.vimeo.com"
+        );
+        iframe.contentWindow?.postMessage(
+          '{"method":"addEventListener","value":"pause"}',
+          "https://player.vimeo.com"
+        );
       }, 1000);
     };
+
+    // Fallback initialization in case load event doesn't fire
+    const fallbackInit = setTimeout(() => {
+      if (!isReady) {
+        console.log(
+          "Fallback initialization - load event might not have fired"
+        );
+        setIsReady(true);
+        setIsLoading(false);
+      }
+    }, 3000);
 
     // Listen for messages from Vimeo player
     const handleMessage = (event: MessageEvent) => {
@@ -98,26 +105,50 @@ const CustomVideoPlayer = () => {
 
         if (data.method === "getDuration") {
           setDuration(data.value);
+          console.log("Duration received:", data.value);
         } else if (data.method === "getCurrentTime") {
           setProgress(data.value);
+        } else if (data.event === "play") {
+          console.log("Vimeo play event received - syncing state");
+          setIsPlaying(true);
+        } else if (data.event === "pause") {
+          console.log("Vimeo pause event received - syncing state");
+          setIsPlaying(false);
         }
       } catch (error) {
         // Ignore parsing errors
+        console.warn("Error parsing Vimeo message:", error);
       }
     };
 
     iframe.addEventListener("load", handleLoad);
     window.addEventListener("message", handleMessage);
 
+    // Check if iframe src is set and trigger load manually if needed
+    if (iframe.src) {
+      console.log("Iframe src is set, will wait for load event or fallback");
+    }
+
+    // Immediate check - sometimes the load event doesn't fire reliably
+    const immediateCheck = setTimeout(() => {
+      if (!isReady) {
+        console.log("Immediate initialization - enabling controls");
+        setIsReady(true);
+        setIsLoading(false);
+      }
+    }, 1500);
+
     return () => {
       iframe.removeEventListener("load", handleLoad);
       window.removeEventListener("message", handleMessage);
+      clearTimeout(fallbackInit);
+      clearTimeout(immediateCheck);
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
         progressIntervalRef.current = null;
       }
     };
-  }, []);
+  }, [isReady]);
 
   // Handle progress polling when playing
   useEffect(() => {
@@ -147,39 +178,81 @@ const CustomVideoPlayer = () => {
     }
   }, [isPlaying, isReady]);
 
+  // Handle fullscreen change events
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
   const togglePlay = () => {
-    if (iframeRef.current && isReady) {
+    // Debounce rapid clicks
+    const now = Date.now();
+    if (now - lastClickTime.current < 300) {
+      console.log("Click debounced");
+      return;
+    }
+    lastClickTime.current = now;
+
+    if (!iframeRef.current || !isReady) {
+      console.log("Player not ready yet");
+      return;
+    }
+
+    if (isLoading) {
+      console.log("Player is loading, ignoring click");
+      return;
+    }
+
+    console.log("Toggle play clicked, current state:", isPlaying);
+    setIsLoading(true);
+
+    try {
       if (isPlaying) {
+        console.log("Sending pause command");
         iframeRef.current.contentWindow?.postMessage(
           '{"method":"pause"}',
           "https://player.vimeo.com"
         );
+        // Update state immediately for responsiveness
         setIsPlaying(false);
+        setIsLoading(false);
       } else {
+        console.log("Sending play command");
         // Ensure audio is enabled before playing
         iframeRef.current.contentWindow?.postMessage(
           `{"method":"setVolume","value":${isMuted ? 0 : volume}}`,
           "https://player.vimeo.com"
         );
+
+        iframeRef.current?.contentWindow?.postMessage(
+          '{"method":"play"}',
+          "https://player.vimeo.com"
+        );
+
+        // Update state immediately for responsiveness
         setTimeout(() => {
+          setIsPlaying(true);
+          setIsLoading(false);
+
+          // Get duration and current time when starting playback
           iframeRef.current?.contentWindow?.postMessage(
-            '{"method":"play"}',
+            '{"method":"getDuration"}',
             "https://player.vimeo.com"
           );
-          // Get duration and current time when starting playback
-          setTimeout(() => {
-            iframeRef.current?.contentWindow?.postMessage(
-              '{"method":"getDuration"}',
-              "https://player.vimeo.com"
-            );
-            iframeRef.current?.contentWindow?.postMessage(
-              '{"method":"getCurrentTime"}',
-              "https://player.vimeo.com"
-            );
-          }, 200);
-        }, 100);
-        setIsPlaying(true);
+          iframeRef.current?.contentWindow?.postMessage(
+            '{"method":"getCurrentTime"}',
+            "https://player.vimeo.com"
+          );
+        }, 200);
       }
+    } catch (error) {
+      console.error("Error toggling play:", error);
+      setIsLoading(false);
     }
   };
 
@@ -195,13 +268,49 @@ const CustomVideoPlayer = () => {
     }
   };
 
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement && containerRef.current) {
-      containerRef.current.requestFullscreen();
-      setIsFullscreen(true);
-    } else if (document.fullscreenElement) {
-      document.exitFullscreen();
-      setIsFullscreen(false);
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement && containerRef.current) {
+        await containerRef.current.requestFullscreen();
+        setIsFullscreen(true);
+
+        // Lock to landscape on mobile devices
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+          try {
+            // Use the screen orientation API if available
+            if (
+              "orientation" in screen &&
+              "lock" in (screen.orientation as any)
+            ) {
+              await (screen.orientation as any).lock("landscape");
+            }
+          } catch (orientationError) {
+            // Orientation lock might fail, but that's okay
+            console.log("Orientation lock not supported or failed");
+          }
+        }
+      } else if (document.fullscreenElement) {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+
+        // Unlock orientation when exiting fullscreen
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+          try {
+            // Use the screen orientation API if available
+            if (
+              "orientation" in screen &&
+              "unlock" in (screen.orientation as any)
+            ) {
+              (screen.orientation as any).unlock();
+            }
+          } catch (orientationError) {
+            // Orientation unlock might fail, but that's okay
+            console.log("Orientation unlock not supported or failed");
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Fullscreen operation failed:", error);
     }
   };
 
@@ -220,12 +329,14 @@ const CustomVideoPlayer = () => {
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="relative group cursor-pointer"
-      onMouseEnter={() => setShowControls(true)}
-    >
-      <div className="relative pb-[56.25%] rounded-2xl overflow-hidden bg-stone-100 border border-stone-300/30">
+    <div ref={containerRef} className="relative group cursor-pointer">
+      <div
+        className={`relative overflow-hidden bg-stone-100 ${
+          isFullscreen
+            ? "h-screen w-screen rounded-none border-0"
+            : "pb-[56.25%] rounded-2xl border border-stone-300/30"
+        }`}
+      >
         <iframe
           ref={iframeRef}
           src="https://player.vimeo.com/video/1094189150?api=1&autoplay=0&loop=0&dnt=1&muted=0&controls=0&title=0&byline=0&portrait=0&badge=0"
@@ -234,130 +345,152 @@ const CustomVideoPlayer = () => {
           className="absolute top-0 left-0 w-full h-full"
         />
 
-        {/* Custom Controls Overlay */}
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: showControls ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"
-        />
-
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: showControls ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute bottom-0 left-0 right-0 p-4 flex items-center justify-between pointer-events-auto"
-        >
-          {/* Play/Pause Button */}
+        {/* Large Play Button Overlay */}
+        {!isPlaying && !isLoading && (
           <motion.button
             onClick={togglePlay}
-            className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            disabled={!isReady}
+            className={`absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm ${
+              !isReady ? "cursor-not-allowed" : "cursor-pointer"
+            }`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            whileHover={!isReady ? {} : { scale: 1.02 }}
+            whileTap={!isReady ? {} : { scale: 0.98 }}
           >
-            {isPlaying ? (
-              <PauseIcon className="w-5 h-5 text-white" />
-            ) : (
-              <PlayIcon className="w-5 h-5 text-white ml-0.5" />
-            )}
+            <motion.div
+              className={`w-16 h-16 md:w-20 md:h-20 backdrop-blur-md rounded-full border-2 flex items-center justify-center ${
+                !isReady
+                  ? "bg-white/5 border-white/10"
+                  : "bg-white/10 border-white/30"
+              }`}
+              whileHover={
+                !isReady
+                  ? {}
+                  : {
+                      scale: 1.1,
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                    }
+              }
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <PlayIcon
+                className={`w-6 h-6 md:w-8 md:h-8 ml-1 ${
+                  !isReady ? "text-white/50" : "text-white"
+                }`}
+              />
+            </motion.div>
           </motion.button>
+        )}
 
-          {/* Center Controls */}
-          <div className="flex-1 mx-4">
-            <div className="bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/20">
-              {/* Progress Bar */}
-              <div className="mb-3">
-                <div
-                  className="h-1 bg-white/20 rounded-full cursor-pointer group"
-                  onClick={handleProgressClick}
-                >
-                  <motion.div
-                    className="h-full bg-white/60 rounded-full relative group-hover:bg-white/80 transition-colors duration-200"
-                    style={{
-                      width:
-                        duration > 0 ? `${(progress / duration) * 100}%` : "0%",
-                    }}
-                    initial={{ width: 0 }}
-                    animate={{
-                      width:
-                        duration > 0 ? `${(progress / duration) * 100}%` : "0%",
-                    }}
-                    transition={{ duration: 0.1, ease: "linear" }}
-                  >
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 -translate-x-1/2" />
-                  </motion.div>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="text-white text-sm font-mono tracking-wider">
-                  "SCREECH" Production - Engine operator and Virtual Art
-                  Department Lead
-                </div>
-                <div className="text-white/60 text-xs font-mono ml-4">
-                  {duration > 0
-                    ? `${formatTime(progress)} / ${formatTime(duration)}`
-                    : `${formatTime(progress)} / --:--`}
-                </div>
-              </div>
+        {/* Loading Overlay */}
+        {isLoading && (
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-md rounded-full border-2 border-white/30 flex items-center justify-center">
+              <div className="w-8 h-8 md:w-10 md:h-10 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            </div>
+          </motion.div>
+        )}
+      </div>
+
+      {/* Video Controls - Below Video */}
+      {!isFullscreen && (
+        <div className="mt-4 bg-stone-100 rounded-xl border border-stone-300/30 p-4">
+          {/* Progress Bar */}
+          <div className="mb-4">
+            <div
+              className="h-2 bg-stone-300 rounded-full cursor-pointer group"
+              onClick={handleProgressClick}
+            >
+              <motion.div
+                className="h-full bg-stone-600 rounded-full relative group-hover:bg-stone-700 transition-colors duration-200"
+                style={{
+                  width:
+                    duration > 0 ? `${(progress / duration) * 100}%` : "0%",
+                }}
+                initial={{ width: 0 }}
+                animate={{
+                  width:
+                    duration > 0 ? `${(progress / duration) * 100}%` : "0%",
+                }}
+                transition={{ duration: 0.1, ease: "linear" }}
+              >
+                <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-stone-700 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              </motion.div>
             </div>
           </div>
 
-          {/* Right Controls */}
-          <div className="flex items-center gap-2">
+          {/* Video Info */}
+          <div className="mb-4">
+            <div className="text-stone-800 text-sm font-mono tracking-wider font-medium mb-2">
+              "SCREECH" Production - Engine operator and Virtual Art Department
+              Lead
+            </div>
+            <div className="text-stone-600 text-xs font-mono">
+              {duration > 0
+                ? `${formatTime(progress)} / ${formatTime(duration)}`
+                : `${formatTime(progress)} / --:--`}
+            </div>
+          </div>
+
+          {/* Control Buttons */}
+          <div className="flex items-center justify-center gap-4">
+            {/* Play/Pause Button */}
+            <motion.button
+              onClick={togglePlay}
+              disabled={!isReady || isLoading}
+              className={`flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-xl text-white transition-colors duration-200 ${
+                !isReady || isLoading
+                  ? "bg-stone-400 cursor-not-allowed"
+                  : "bg-stone-600 hover:bg-stone-700 cursor-pointer"
+              }`}
+              whileHover={!isReady || isLoading ? {} : { scale: 1.05 }}
+              whileTap={!isReady || isLoading ? {} : { scale: 0.95 }}
+            >
+              {isLoading ? (
+                <div className="w-6 h-6 md:w-7 md:h-7 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : isPlaying ? (
+                <PauseIcon className="w-6 h-6 md:w-7 md:h-7 text-white" />
+              ) : (
+                <PlayIcon className="w-6 h-6 md:w-7 md:h-7 text-white ml-0.5" />
+              )}
+            </motion.button>
+
             {/* Volume Button */}
             <motion.button
               onClick={toggleMute}
-              className="flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200"
+              className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-stone-200 hover:bg-stone-300 rounded-xl transition-colors duration-200"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               {isMuted ? (
-                <SpeakerXMarkIcon className="w-5 h-5 text-white" />
+                <SpeakerXMarkIcon className="w-5 h-5 md:w-6 md:h-6 text-stone-700" />
               ) : (
-                <SpeakerWaveIcon className="w-5 h-5 text-white" />
+                <SpeakerWaveIcon className="w-5 h-5 md:w-6 md:h-6 text-stone-700" />
               )}
             </motion.button>
 
             {/* Fullscreen Button */}
             <motion.button
               onClick={toggleFullscreen}
-              className="flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200"
+              className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-stone-200 hover:bg-stone-300 rounded-xl transition-colors duration-200"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               {isFullscreen ? (
-                <ArrowsPointingInIcon className="w-5 h-5 text-white" />
+                <ArrowsPointingInIcon className="w-5 h-5 md:w-6 md:h-6 text-stone-700" />
               ) : (
-                <ArrowsPointingOutIcon className="w-5 h-5 text-white" />
+                <ArrowsPointingOutIcon className="w-5 h-5 md:w-6 md:h-6 text-stone-700" />
               )}
             </motion.button>
           </div>
-        </motion.div>
-
-        {/* Large Play Button Overlay */}
-        {!isPlaying && (
-          <motion.button
-            onClick={togglePlay}
-            className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <motion.div
-              className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full border-2 border-white/30 flex items-center justify-center"
-              whileHover={{
-                scale: 1.1,
-                backgroundColor: "rgba(255,255,255,0.2)",
-              }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <PlayIcon className="w-8 h-8 text-white ml-1" />
-            </motion.div>
-          </motion.button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -461,7 +594,8 @@ export default function Home() {
                 color="light"
                 className="mb-12 opacity-70 tracking-widest uppercase text-sm md:text-base"
               >
-                [ 3D Artist • VFX Professional • Technical Creative ]
+                [ 3D Artist • VFX Professional • Technical artist • Engine
+                operator ]
               </Typography>
             </motion.div>
 
@@ -549,7 +683,7 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <div className="pt-12 pb-24 px-6 lg:px-12" id="demo">
+      <div className="pt-12 pb-24 lg:px-12" id="demo">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
