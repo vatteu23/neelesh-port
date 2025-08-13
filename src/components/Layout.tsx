@@ -21,6 +21,13 @@ const navigationItems = [
   { href: "/work", label: "/work" },
 ];
 
+const resumeItem = {
+  href: "/resume.pdf",
+  label: "Resume",
+  isExternal: true,
+  isPrimary: true,
+};
+
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
 
@@ -37,7 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {/* Header content goes here */}
 
         <div className="top-0 sticky z-50 bg-white/90 backdrop-blur-md border-b border-stone-300/30">
-          <Container className=" w-full flex justify-between px-6 py-4">
+          <Container className=" w-full flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4">
             <Link
               href="/"
               className="text-stone-800 font-semibold text-2xl pr-2 hover:opacity-80 transition-opacity"
@@ -45,17 +52,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <motion.img
                 src="/images/logo.svg"
                 alt="Neelesh Reddy"
-                className="w-12 h-12"
+                className="w-10 h-10 sm:w-12 sm:h-12"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               />
             </Link>
-            <nav className="flex items-center gap-x-1">
+            <nav className="flex items-center gap-x-1 sm:gap-x-2">
               {navigationItems.map((item) => (
                 <Link key={item.href} href={item.href} className="relative">
                   <motion.div
-                    className={`font-mono font-medium text-sm px-4 py-2 rounded-lg transition-all transform tracking-wide relative ${
+                    className={`font-mono font-medium text-xs sm:text-sm px-2 sm:px-4 py-2 rounded-lg transition-all transform tracking-wide relative ${
                       isActive(item.href)
                         ? "text-stone-800 bg-stone-200/60"
                         : "text-stone-600 hover:text-stone-800 hover:bg-stone-100"
@@ -81,6 +88,29 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </motion.div>
                 </Link>
               ))}
+
+              {/* Resume CTA */}
+              <Link
+                href={resumeItem.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative ml-1 sm:ml-2"
+              >
+                <motion.div
+                  className="bg-stone-800 hover:bg-stone-700 text-white font-mono font-semibold text-xs sm:text-sm px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-all transform tracking-wide relative shadow-sm hover:shadow-md"
+                  whileHover={{ y: -2, scale: 1.02 }}
+                  whileTap={{ y: 0, scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  {resumeItem.label}
+                  <motion.div
+                    className="absolute bottom-0 left-1/2 w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover:opacity-100"
+                    initial={false}
+                    style={{ x: "-50%" }}
+                    transition={{ duration: 0.2 }}
+                  />
+                </motion.div>
+              </Link>
             </nav>
           </Container>
         </div>
