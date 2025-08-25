@@ -34,10 +34,7 @@
     @apply inline-flex items-center justify-center font-semibold transition-all duration-200 transform focus-ring;
   }
   
-  /* Professional card styling using PEBBLE colors */
-  .card {
-    @apply bg-white border border-pebble-light/30 rounded-2xl;
-  }
+
   
   /* PEBBLE specific button variants */
   .btn-pebble-primary {

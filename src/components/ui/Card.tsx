@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = ({
   padding = "md",
 }) => {
   const baseClasses = cn(
-    "rounded-2xl transition-all duration-300",
+    "rounded-2xl transition-colors duration-200 ease-in-out",
     {
       "bg-white border border-stone-300/30": variant === "default",
       "bg-white border-2 border-stone-300": variant === "bordered",
@@ -30,8 +30,7 @@ const Card: React.FC<CardProps> = ({
       "p-6 md:p-8": padding === "md",
       "p-8 md:p-12": padding === "lg",
     },
-    hover &&
-      "hover:border-stone-400/50 hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1",
+    hover && "hover:border-stone-400/50 hover:shadow-lg",
     className
   );
 
@@ -39,8 +38,8 @@ const Card: React.FC<CardProps> = ({
     return (
       <motion.div
         className={baseClasses}
-        whileHover={{ y: -4, scale: 1.02 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        whileHover={{ y: -2, scale: 1.01 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
       >
         {children}
       </motion.div>

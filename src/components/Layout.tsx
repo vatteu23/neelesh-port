@@ -1,9 +1,9 @@
 import React from "react";
-import { Inter } from "next/font/google";
+import { Inter_Tight } from "next/font/google";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 
-const inter = Inter({
+const inter = Inter_Tight({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",

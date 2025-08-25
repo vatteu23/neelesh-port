@@ -1,10 +1,27 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Container from "@/components/Container";
 import Card from "@/components/ui/Card";
 import Typography from "@/components/Typography";
 import { skills } from "@/data/portfolio";
-import { fadeInUp, staggerContainer } from "@/types";
+
+// Animation variants
+const fadeInUp: Variants = {
+  initial: { opacity: 0, y: 20 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 },
+  },
+};
+
+const staggerContainer: Variants = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 const SkillsOverview: React.FC = () => {
   return (
@@ -32,36 +49,45 @@ const SkillsOverview: React.FC = () => {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-12"
+            className="space-y-12"
           >
             {skills.map((skill, index) => (
               <motion.div
                 key={skill.id}
                 variants={fadeInUp}
-                className="text-center space-y-4"
+                className="group relative"
               >
-                <div className="mb-4">
-                  <Typography
-                    variant="small"
-                    mono
-                    className="mono-badge text-stone-600 mb-3"
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    className="font-semibold text-stone-800 mt-3"
-                  >
-                    {skill.title}
-                  </Typography>
+                {/* Enhanced border line */}
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-stone-300 to-stone-400 group-hover:from-stone-400 group-hover:to-stone-500 transition-all duration-300 rounded-full"></div>
+
+                <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-8 pl-8 pr-6 py-6">
+                  {/* Bold Number */}
+                  <div className="flex-shrink-0">
+                    <Typography
+                      variant="h2"
+                      className="font-black text-4xl md:text-5xl text-stone-600 group-hover:text-stone-900 transition-colors leading-none"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </Typography>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 space-y-4">
+                    <Typography
+                      variant="h3"
+                      className="font-bold text-stone-600 leading-tight group-hover:text-stone-900 transition-colors"
+                    >
+                      {skill.title}
+                    </Typography>
+                    <Typography
+                      variant="p"
+                      color="secondary"
+                      className="leading-relaxed text-stone-600 text-lg"
+                    >
+                      {skill.description}
+                    </Typography>
+                  </div>
                 </div>
-                <Typography
-                  variant="p"
-                  color="secondary"
-                  className="leading-relaxed"
-                >
-                  {skill.description}
-                </Typography>
               </motion.div>
             ))}
           </motion.div>

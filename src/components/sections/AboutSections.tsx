@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Container from "@/components/Container";
 import Card from "@/components/ui/Card";
@@ -7,7 +7,24 @@ import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 import Typography from "@/components/Typography";
 import { personalInfo, experience, education } from "@/data/portfolio";
-import { fadeInUp, staggerContainer } from "@/types";
+
+// Animation variants
+const fadeInUp: Variants = {
+  initial: { opacity: 0, y: 20 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 },
+  },
+};
+
+const staggerContainer: Variants = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 // Bio Section Component
 export const BioSection: React.FC = () => {
@@ -19,50 +36,98 @@ export const BioSection: React.FC = () => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row items-center justify-between space-y-16 md:space-y-0 md:space-x-20 mb-24"
+          className="mb-24"
         >
-          {/* Profile Image */}
-          <motion.div variants={fadeInUp} className="w-full md:w-1/3">
-            <div className="relative">
-              <Image
-                src="/images/profile.jpeg"
-                alt={`${personalInfo.name} - Profile Picture`}
-                width={400}
-                height={400}
-                className="rounded-2xl border-2 border-stone-300/30 transition-transform transform hover:scale-105 w-full"
-                priority
-              />
-            </div>
-          </motion.div>
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-16 md:space-y-0 md:space-x-20">
+            {/* Profile Image */}
+            <motion.div variants={fadeInUp} className="w-full md:w-1/3">
+              <div className="relative group">
+                <Image
+                  src="/images/profile.jpeg"
+                  alt={`${personalInfo.name} - Profile Picture`}
+                  width={400}
+                  height={400}
+                  className="rounded-2xl border-2 border-stone-300/30 transition-transform transform group-hover:scale-105 w-full shadow-lg"
+                  priority
+                />
+              </div>
+            </motion.div>
 
-          {/* Bio Content */}
-          <motion.div variants={fadeInUp} className="w-full md:w-2/3 space-y-6">
-            <Typography
-              variant="small"
-              mono
-              className="mono-section-header mb-4"
+            {/* Enhanced Bio Content */}
+            <motion.div
+              variants={fadeInUp}
+              className="w-full md:w-2/3 space-y-8"
             >
-              // A Little About Me
-            </Typography>
-            <Typography
-              variant="p"
-              color="secondary"
-              className="leading-relaxed text-lg"
-            >
-              {personalInfo.bio}
-            </Typography>
+              <div className="space-y-4">
+                <Typography
+                  variant="small"
+                  mono
+                  className="mono-section-header mb-2"
+                >
+                  // A Little About Me
+                </Typography>
+                <div className="w-20 h-1 bg-gradient-to-r from-stone-400 to-stone-600 rounded-full"></div>
+              </div>
 
-            <Button
-              href={personalInfo.linkedIn}
-              external
-              variant="primary"
-              size="lg"
-              mono
-              className="mt-8 rounded-full"
-            >
-              Connect_with_me
-            </Button>
-          </motion.div>
+              <div className="space-y-6">
+                <Typography
+                  variant="p"
+                  color="secondary"
+                  className="leading-relaxed text-lg text-stone-600"
+                >
+                  {personalInfo.bio}
+                </Typography>
+
+                {/* Key highlights */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-6">
+                  <div className="text-center p-4 bg-stone-50 rounded-xl border border-stone-200">
+                    <Typography
+                      variant="h4"
+                      className="font-black text-stone-800"
+                    >
+                      2+
+                    </Typography>
+                    <Typography variant="small" className="text-stone-600">
+                      Years Experience
+                    </Typography>
+                  </div>
+                  <div className="text-center p-4 bg-stone-50 rounded-xl border border-stone-200">
+                    <Typography
+                      variant="h4"
+                      className="font-black text-stone-800"
+                    >
+                      6+
+                    </Typography>
+                    <Typography variant="small" className="text-stone-600">
+                      Major Films
+                    </Typography>
+                  </div>
+                  <div className="text-center p-4 bg-stone-50 rounded-xl border border-stone-200">
+                    <Typography
+                      variant="h4"
+                      className="font-black text-stone-800"
+                    >
+                      3
+                    </Typography>
+                    <Typography variant="small" className="text-stone-600">
+                      VP Short Films
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+
+              <Button
+                href={personalInfo.linkedIn}
+                external
+                variant="primary"
+                size="lg"
+                mono
+                className="mt-8 rounded-full"
+              >
+                Connect_with_me
+              </Button>
+            </motion.div>
+          </div>
         </motion.div>
       </Container>
     </Section>
