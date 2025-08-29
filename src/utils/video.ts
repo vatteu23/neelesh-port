@@ -8,7 +8,7 @@ export const getVideoPlatform = (url: string): "youtube" | "vimeo" | "other" => 
     return "youtube";
   }
   
-  if (url.includes("vimeo.com")) {
+  if (url.includes("vimeo.com") || url.includes("player.vimeo.com")) {
     return "vimeo";
   }
   
@@ -39,12 +39,22 @@ export const getYouTubeEmbedUrl = (url: string): string => {
 export const getVimeoEmbedUrl = (url: string): string => {
   if (!url) return "";
   
+  // If already in embed format, return as-is
   if (url.includes("player.vimeo.com")) {
     return url;
   }
   
-  const videoId = url.split("vimeo.com/")[1]?.split("?")[0];
-  return videoId ? `https://player.vimeo.com/video/${videoId}?dnt=1&title=0&byline=0&portrait=0` : url;
+  // Extract video ID from various Vimeo URL formats
+  let videoId = "";
+  if (url.includes("vimeo.com/")) {
+    videoId = url.split("vimeo.com/")[1]?.split("?")[0]?.split("/")[0] || "";
+  }
+  
+  if (videoId) {
+    return `https://player.vimeo.com/video/${videoId}?dnt=1&title=0&byline=0&portrait=0&badge=0`;
+  }
+  
+  return url;
 };
 
 /**
@@ -60,8 +70,7 @@ export const getEmbedUrl = (url: string): string => {
 
   // Convert Vimeo URLs to embed format
   if (url.includes("vimeo.com") && !url.includes("player.vimeo.com")) {
-    const videoId = url.split("vimeo.com/")[1]?.split("?")[0];
-    return videoId ? `https://player.vimeo.com/video/${videoId}?dnt=1&title=0&byline=0&portrait=0` : url;
+    return getVimeoEmbedUrl(url);
   }
 
   // Convert YouTube URLs to embed format
@@ -84,11 +93,18 @@ export const getVideoThumbnail = (url: string): string => {
   }
   
   if (platform === "vimeo") {
-    // For Vimeo, we'll use the video ID to construct a thumbnail URL
-    // Note: Vimeo doesn't provide direct thumbnail URLs like YouTube, so we'll use a placeholder
-    // In a real implementation, you might want to use Vimeo's API to get actual thumbnails
-    const videoId = url.split("vimeo.com/")[1]?.split("?")[0];
-    return videoId ? `https://vumbnail.com/${videoId}_large.jpg` : "";
+    // Extract video ID from Vimeo URL
+    let videoId = "";
+    if (url.includes("vimeo.com/")) {
+      videoId = url.split("vimeo.com/")[1]?.split("?")[0]?.split("/")[0] || "";
+    } else if (url.includes("player.vimeo.com")) {
+      videoId = url.split("player.vimeo.com/video/")[1]?.split("?")[0] || "";
+    }
+    
+    // Use vumbnail.com for Vimeo thumbnails (free service)
+    if (videoId) {
+      return `https://vumbnail.com/${videoId}_large.jpg`;
+    }
   }
   
   // For other platforms, return a default or extract from URL if possible

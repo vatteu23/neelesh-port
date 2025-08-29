@@ -30,13 +30,16 @@ const Projects: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <Typography variant="h1" className="mb-4 text-stone-800">
+            
+            <Typography
+              variant="small"
+              mono
+              className="mono-section-header mb-4"
+           
+            >
               // PROJECTS
             </Typography>
-            <Typography variant="p" className="text-stone-600 max-w-2xl mx-auto">
-              A collection of Unreal Engine projects showcasing various aspects of game development, 
-              from advanced materials and lighting to interactive gameplay systems.
-            </Typography>
+          
           </motion.div>
 
           {/* Projects Grid */}
@@ -44,13 +47,14 @@ const Projects: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             <AnimatePresence>
               {unrealProjects.map((project, index) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
+                  index={index}
                   isHovered={hoveredProject === project.id}
                   onHover={() => setHoveredProject(project.id)}
                   onLeave={() => setHoveredProject(null)}
@@ -67,6 +71,7 @@ const Projects: React.FC = () => {
 
 interface ProjectCardProps {
   project: UnrealProject;
+  index: number;
   isHovered: boolean;
   onHover: () => void;
   onLeave: () => void;
@@ -75,6 +80,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   project,
+  index,
   isHovered,
   onHover,
   onLeave,
@@ -103,7 +109,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      className="cursor-pointer group overflow-hidden rounded-2xl bg-white border-2 border-stone-300 hover:border-stone-400/50 hover:shadow-lg transition-all duration-200 ease-in-out mb-8"
+      className="cursor-pointer group overflow-hidden rounded-2xl  border-2 border-stone-300 hover:border-stone-400/50 hover:shadow-lg transition-all duration-200 ease-in-out mb-8"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       onClick={onClick}
@@ -161,7 +167,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             
             {/* Hover indicator */}
             <div className={cn(
-              "absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-mono text-stone-800 transition-opacity duration-300",
+              "absolute top-4 right-4 bg-white/50 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-mono text-stone-800 transition-opacity duration-300",
               isHovered ? "opacity-0" : "opacity-100"
             )}>
               PLAY PREVIEW
@@ -183,12 +189,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
       {/* Title Section */}
       <div className="p-6">
-        <Typography variant="h5" fontWeight="semibold" className="mb-3 text-stone-800 leading-tight">
+        <Typography variant="h6" fontWeight="normal" className="mb-3 text-stone-800 leading-tight">
           {project.title}
         </Typography>
-        <Typography variant="small" className="text-stone-600 font-mono tracking-wider">
+        <Typography variant="small" className="text-stone-600 font-mono ">
           // {project.category.toUpperCase().replace(/\s+/g, "_")}
         </Typography>
+        
+        {/* Tools */}
+        {/* <div className="mt-4 flex flex-wrap gap-2">
+          {project.tools.slice(0, 2).map((tool, index) => (
+            <span
+              key={index}
+              className="px-2 py-1 bg-stone-100 text-stone-600 text-xs rounded"
+            >
+              {tool}
+            </span>
+          ))}
+          {project.tools.length > 2 && (
+            <span className="px-2 py-1 bg-stone-200 text-stone-600 text-xs rounded">
+              +{project.tools.length - 2} more
+            </span>
+          )}
+        </div> */}
       </div>
     </motion.div>
   );

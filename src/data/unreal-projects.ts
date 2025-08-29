@@ -16,13 +16,14 @@ export const unrealProjects: UnrealProject[] = [
     description: "A cinematic short film showcasing advanced lighting and atmospheric effects in Unreal Engine.",
     category: "Cinematic",
     videoUrl: "https://youtu.be/nMDf272PdB4",
-    thumbnailUrl: "/images/beach-date-thumb.jpg",
+    thumbnailUrl: "/projects/beach-date/1.png",
     tools: ["Unreal Engine 5", "Lumen", "Nanite", "Blueprints"],
     images: [
-      "/images/beach-date-1.jpg",
-      "/images/beach-date-2.jpg",
-      "/images/beach-date-3.jpg",
-      "/images/beach-date-4.jpg"
+      "/projects/beach-date/1.png",
+      "/projects/beach-date/2.png",
+      "/projects/beach-date/3.png",
+      "/projects/beach-date/4.png",
+      "/projects/beach-date/5.png"
     ]
   },
   {
@@ -31,12 +32,13 @@ export const unrealProjects: UnrealProject[] = [
     description: "Complex gameplay systems built entirely with Blueprint visual scripting.",
     category: "Gameplay",
     videoUrl: "https://youtu.be/_iHGsvaXkYw",
-    thumbnailUrl: "/images/blueprinting-thumb.jpg",
+    thumbnailUrl: "/projects/blueprinting/1.png",
     tools: ["Unreal Engine 5", "Blueprints", "Gameplay Framework"],
     images: [
-      "/images/blueprinting-1.jpg",
-      "/images/blueprinting-2.jpg",
-      "/images/blueprinting-3.jpg"
+      "/projects/blueprinting/1.png",
+      "/projects/blueprinting/2.png",
+      "/projects/blueprinting/3.png",
+      "/projects/blueprinting/4.png"
     ]
   },
   {
@@ -45,13 +47,9 @@ export const unrealProjects: UnrealProject[] = [
     description: "An open-world environment with procedural terrain generation and dynamic weather systems.",
     category: "Environment",
     videoUrl: "https://vimeo.com/1082915708",
-    thumbnailUrl: "/images/pandora-world-thumb.jpg",
+    thumbnailUrl: "/projects/pandora-world/1.png",
     tools: ["Unreal Engine 5", "World Creator", "Houdini", "Substance"],
     images: [
-      "/images/pandora-world-1.jpg",
-      "/images/pandora-world-2.jpg",
-      "/images/pandora-world-3.jpg",
-      "/images/pandora-world-4.jpg"
     ]
   },
   {
@@ -59,13 +57,15 @@ export const unrealProjects: UnrealProject[] = [
     title: "Retargeting & Sequencer",
     description: "Advanced animation retargeting and cinematic sequence creation using Unreal's animation tools.",
     category: "Animation",
-    videoUrl: "https://youtu.be/example3",
-    thumbnailUrl: "/images/retargeting-thumb.jpg",
+    videoUrl: "https://vimeo.com/1094189150",
+    thumbnailUrl: "/projects/Retargeting-and-Sequencer/1.png",
     tools: ["Unreal Engine 5", "Control Rig", "Sequencer", "Animation Blueprint"],
     images: [
-      "/images/retargeting-1.jpg",
-      "/images/retargeting-2.jpg",
-      "/images/retargeting-3.jpg"
+      "/projects/Retargeting-and-Sequencer/1.png",
+      "/projects/Retargeting-and-Sequencer/2.png",
+      "/projects/Retargeting-and-Sequencer/3.png",
+      "/projects/Retargeting-and-Sequencer/4.png",
+      "/projects/Retargeting-and-Sequencer/5.png"
     ]
   },
   {
@@ -73,14 +73,15 @@ export const unrealProjects: UnrealProject[] = [
     title: "Screech - Virtual Production",
     description: "A virtual production short film demonstrating real-time rendering and virtual camera techniques.",
     category: "Virtual Production",
-    videoUrl: "https://youtu.be/example4",
-    thumbnailUrl: "/images/screech-thumb.jpg",
+    videoUrl: "https://youtu.be/8vH44axqvhI",
+    thumbnailUrl: "/projects/screech-virtual-production/1.png",
     tools: ["Unreal Engine 5", "Virtual Camera", "Live Link", "Composure"],
     images: [
-      "/images/screech-1.jpg",
-      "/images/screech-2.jpg",
-      "/images/screech-3.jpg",
-      "/images/screech-4.jpg"
+      "/projects/screech-virtual-production/1.png",
+      "/projects/screech-virtual-production/2.png",
+      "/projects/screech-virtual-production/3.png",
+      "/projects/screech-virtual-production/4.png",
+      "/projects/screech-virtual-production/5.png"
     ]
   },
   {
@@ -88,13 +89,15 @@ export const unrealProjects: UnrealProject[] = [
     title: "Substrate Materials",
     description: "Advanced material creation using Unreal Engine 5's new Substrate material system.",
     category: "Materials",
-    videoUrl: "https://youtu.be/example5",
-    thumbnailUrl: "/images/substrate-thumb.jpg",
+    videoUrl: "https://vimeo.com/1095492236",
+    thumbnailUrl: "/projects/substrate-materials/1.PNG",
     tools: ["Unreal Engine 5", "Substrate", "Material Editor", "Substance"],
     images: [
-      "/images/substrate-1.jpg",
-      "/images/substrate-2.jpg",
-      "/images/substrate-3.jpg"
+      "/projects/substrate-materials/1.PNG",
+      "/projects/substrate-materials/2.PNG",
+      "/projects/substrate-materials/3.PNG",
+      "/projects/substrate-materials/4.PNG",
+      "/projects/substrate-materials/5.PNG"
     ]
   }
 ];

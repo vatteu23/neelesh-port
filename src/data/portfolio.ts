@@ -64,6 +64,7 @@ export const navigationItems: NavigationItem[] = [
   { href: "/", label: "/home" },
   { href: "/about", label: "/about" },
   { href: "/work", label: "/work" },
+  { href: "/projects", label: "/projects" },
 ];
 
 // Skills/highlights
@@ -239,29 +240,6 @@ export const portfolioWork: WorkCategory[] = [
             description: "Animation retargeting and cinematic sequencing",
           },
         ],
-      },
-    ],
-  },
-  {
-    category: "Virtual_Production_Short_Films",
-    items: [
-      {
-        type: "video",
-        title: "SAPPED",
-        url: "https://youtu.be/pQL3_LXWgmw",
-        role: "VP Supervisor & Virtual Art Department Artist",
-      },
-      {
-        type: "video",
-        title: "Screech",
-        url: "https://youtu.be/8vH44axqvhI",
-        role: "Engine Operator & Virtual Art Department Artist",
-      },
-      {
-        type: "video",
-        title: "NO Signal",
-        url: "https://youtu.be/q4moYsxvLTA",
-        role: "Systems Tech",
       },
     ],
   },
