@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center !mt-4 m-4 md:m-12 !mb-0 bg-gradient-to-br  relative overflow-hidden py-8 rounded-2xl  ">
+    <div className="flex items-center  bg-gradient-to-br  relative overflow-hidden py-8 rounded-2xl  ">
       {/* Animated background pattern */}
 
       <Container className="flex md:flex-row flex-col gap-6 h-full w-full max-w-[2000px] mx-auto">
