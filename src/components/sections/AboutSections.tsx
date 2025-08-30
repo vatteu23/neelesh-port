@@ -29,7 +29,7 @@ const staggerContainer: Variants = {
 // About Hero Section Component
 export const AboutHero: React.FC = () => {
   return (
-    <div className="flex items-center !mt-4 m-4 md:m-12 !mb-0 bg-gradient-to-br relative overflow-hidden md:p-8 rounded-2xl">
+    <div className="flex items-center !mt-4 m-4 md:m-12 !mb-0 bg-gradient-to-br relative overflow-hidden py-8 rounded-2xl">
       <Container className="flex md:flex-row flex-col gap-6 h-full w-full">
         {/* Left Section - Personal Story & Journey */}
         <div className="md:w-2/3 w-full bg-gradient-to-br from-stone-50 to-stone-300 min-h-[40vh] relative z-10 rounded-3xl flex py-12 p-4 md:p-12 flex-col gap-y-12 justify-between">
