@@ -136,10 +136,10 @@ const Hero: React.FC = () => {
             </Typography>
 
           </div>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row flex-wrap gap-4">
             <Button
               variant="outline"
-              size="md"
+              size="sm"
               mono
               onClick={scrollToDemo}
               className="w-full sm:w-auto "
@@ -148,7 +148,7 @@ const Hero: React.FC = () => {
             </Button>
             <Button
               variant="primary"
-              size="md"
+              size="sm"
               color="primary"
               mono
               onClick={scrollToDemo}
