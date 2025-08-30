@@ -54,7 +54,7 @@ export const personalInfo = {
   name: "Neelesh Reddy",
   title: "Virtual Production Supervisor & Visual Storyteller", 
   subtitle: "[ VP Engine Operator • Virtual Art Department • VFX Professional • 3D Generalist ]",
-  bio: "Hi, I'm Neelesh, a passionate visual storyteller with a strong foundation in filmmaking and animation. I hold a Bachelor of Fine Arts degree, graduating with a Silver Medal, and have completed postgraduate programs in 3D Animation and Virtual Production. My journey began in the heart of the Indian Film Industry at Matrix VFX, where I contributed to top-tier films like Skanda, Kushi, and Bhagavanth Kesari. In 2024, I moved to Canada to expand my expertise at Seneca and Humber Polytechnic, where I gained hands-on experience across virtual production short films including 'Screech,' 'No Signal,' and my capstone project 'SAPPED.' I'm currently focused on VP Engine operations and Virtual Art Department work, mastering LED wall operations and designing high-quality content for immersive storytelling where traditional filmmaking meets the limitless possibilities of virtual production.",
+  bio: "Hi, I'm Neelesh, a Silver Medal BFA graduate and passionate visual storyteller with expertise in 3D Animation and Virtual Production. My journey began at Matrix VFX in India, where I contributed to major films like Skanda, Kushi, and Bhagavanth Kesari, before moving to Canada in 2024 to expand my skills at Seneca and Humber Polytechnic. I'm now focused on VP Engine operations and Virtual Art Department work, mastering LED wall operations and real-time content creation where traditional filmmaking meets cutting-edge virtual production technology.",
   linkedIn: "https://www.linkedin.com/in/neelesh-reddy-botta-3405291a6/",
   email: "neelesh@example.com", // Add actual email
 };
@@ -94,8 +94,8 @@ export const skills: SkillItem[] = [
 // Work experience
 export const experience: ExperienceItem[] = [
   {
-    company: "Humber_Polytechnic",
-    position: "VIRTUAL_PRODUCTION_SUPERVISOR", 
+    company: "Humber Polytechnic",
+    position: "VIRTUAL PRODUCTION SUPERVISOR", 
     period: "2024",
     responsibilities: [
       "Led virtual production on capstone project 'SAPPED' as Virtual Production Supervisor, orchestrating live compositing of 3D motion capture characters using Unreal Engine's Composure system.",
@@ -105,9 +105,9 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    company: "Matrix_VFX",
-    position: "3D_GENERALIST", 
-    period: "SEPT_2022 → NOV_2023",
+    company: "Matrix VFX",
+    position: "3D GENERALIST", 
+    period: "SEPT 2022 → NOV 2023",
     responsibilities: [
       "Contributed to several top-tier Indian films including Skanda (2023), Kushi (2023), Bhagavanth Kesari (2023), Custody (2023), Anni Manchi Sakunamule (2023), and Ooru Peru Bhairavakona (2024).",
       "Used Unreal Engine to create immersive layouts and integrated tracked cameras for seamless VFX rendering with multiple passes.",
@@ -117,9 +117,9 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    company: "Spectra_VFX",
-    position: "UNREAL_ENGINE_GENERALIST",
-    period: "NOV_2023 → MAY_2024", 
+    company: "Spectra VFX",
+    position: "UNREAL ENGINE GENERALIST",
+    period: "NOV 2023 → MAY 2024", 
     responsibilities: [
       "Created stunning real-time visuals using advanced Unreal Engine techniques and workflows.",
       "Implemented Procedural Content Generation (PCG) systems to optimize foliage and environmental assets.",
@@ -131,26 +131,26 @@ export const experience: ExperienceItem[] = [
 // Education
 export const education: EducationItem[] = [
   {
-    degree: "ONTARIO_COLLEGE_GRADUATE_CERTIFICATE",
-    institution: "HUMBER_POLYTECHNIC",
+    degree: "ONTARIO COLLEGE GRADUATE CERTIFICATE",
+    institution: "HUMBER POLYTECHNIC",
     period: "2024",
-    specialization: "VIRTUAL_PRODUCTION",
+    specialization: "VIRTUAL PRODUCTION",
   },
   {
-    degree: "ONTARIO_COLLEGE_GRADUATE_CERTIFICATE",
-    institution: "SENECA_POLYTECHNIC",
+    degree: "ONTARIO COLLEGE GRADUATE CERTIFICATE",
+    institution: "SENECA POLYTECHNIC",
     period: "2024",
-    specialization: "3D_ANIMATION",
+    specialization: "3D ANIMATION",
   },
   {
-    degree: "BACHELOR_OF_FINE_ARTS",
-    institution: "KL_UNIVERSITY", 
+    degree: "BACHELOR OF FINE ARTS",
+    institution: "KL UNIVERSITY", 
     period: "2019 → 2023",
-    specialization: "SILVER_MEDAL_GRADUATE",
+    specialization: "SILVER MEDAL GRADUATE",
   },
   {
-    degree: "DIPLOMA_IN_COMPOSITING",
-    institution: "MAYA_ACADEMY_OF_ADVANCED_CINEMATICS",
+    degree: "DIPLOMA IN COMPOSITING",
+    institution: "MAYA ACADEMY OF ADVANCED CINEMATICS",
     period: "2018",
   },
 ];

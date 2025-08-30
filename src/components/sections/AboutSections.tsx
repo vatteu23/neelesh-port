@@ -32,7 +32,7 @@ export const AboutHero: React.FC = () => {
     <div className="flex items-center !mt-4 m-4 md:m-12 !mb-0 bg-gradient-to-br relative overflow-hidden md:p-8 rounded-2xl">
       <div className="flex md:flex-row flex-col gap-6 h-full w-full">
         {/* Left Section - Personal Story & Journey */}
-        <div className="md:w-2/3 w-full bg-gradient-to-br from-stone-50 to-stone-300 min-h-[40vh] relative z-10 rounded-3xl flex py-12 p-4 md:p-12 flex-col justify-between">
+        <div className="md:w-2/3 w-full bg-gradient-to-br from-stone-50 to-stone-300 min-h-[40vh] relative z-10 rounded-3xl flex py-12 p-4 md:p-12 flex-col gap-y-12 justify-between">
           <div>
             <Typography
               variant="h1"
@@ -70,7 +70,7 @@ export const AboutHero: React.FC = () => {
               external
               className="w-full sm:w-auto"
             >
-              Connect_with_Me
+              Connect with me
             </Button>
             <Button
               variant="primary"
@@ -80,7 +80,7 @@ export const AboutHero: React.FC = () => {
               href="/work"
               className="w-full sm:w-auto"
             >
-              View_My_Work
+              View my work
             </Button>
           </div>
         </div>
@@ -164,9 +164,9 @@ export const BioSection: React.FC = () => {
                 <Image
                   src="/images/profile.webp"
                   alt={`${personalInfo.name} - Profile Picture`}
-                  width={400}
-                  height={400}
-                  className="rounded-2xl border-2 border-stone-300/30 transition-transform transform group-hover:scale-105 w-full shadow-lg"
+                  width={600}
+                  height={600}
+                  className="rounded-2xl border-2 border-stone-300/30 transition-transform transform w-full"
                   priority
                 />
               </div>
@@ -199,17 +199,17 @@ export const BioSection: React.FC = () => {
 
                 {/* Key highlights - Redesigned for better visual hierarchy */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-6">
-                  <div className="text-center p-6 bg-gradient-to-br from-stone-50 to-stone-100 rounded-xl border border-stone-200 hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                  <div className="text-center p-6 bg-gradient-to-br from-stone-50 to-stone-100 rounded-xl border border-stone-200 transition-all duration-300 ">
                     <div className="text-3xl font-bold text-stone-800 mb-2">2+</div>
                     <div className="text-sm font-medium text-stone-600">Years Experience</div>
                     <div className="text-xs text-stone-500 mt-1">Matrix VFX → Canada</div>
                   </div>
-                  <div className="text-center p-6 bg-gradient-to-br from-stone-100 to-stone-200 rounded-xl border border-stone-200 hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                  <div className="text-center p-6 bg-gradient-to-br from-stone-100 to-stone-200 rounded-xl border border-stone-200 transition-all duration-300 ">
                     <div className="text-3xl font-bold text-stone-800 mb-2">6+</div>
                     <div className="text-sm font-medium text-stone-600">Major Films</div>
                     <div className="text-xs text-stone-500 mt-1">Skanda, Kushi, Bhagavanth</div>
                   </div>
-                  <div className="text-center p-6 bg-gradient-to-br from-stone-200 to-stone-300 rounded-xl border border-stone-200 hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                  <div className="text-center p-6 bg-gradient-to-br from-stone-200 to-stone-300 rounded-xl border border-stone-200 transition-all duration-300">
                     <div className="text-3xl font-bold text-stone-800 mb-2">3</div>
                     <div className="text-sm font-medium text-stone-600">VP Projects</div>
                     <div className="text-xs text-stone-500 mt-1">Screech, No Signal, SAPPED</div>
@@ -218,7 +218,7 @@ export const BioSection: React.FC = () => {
                               </div>
 
                 {/* Skills highlight */}
-                <div className="bg-stone-50 rounded-xl p-6 border border-stone-200">
+                <div className="bg-gradient-to-br from-stone-50 to-stone-100 rounded-xl p-6 border border-stone-200">
                   <Typography variant="h4" className="font-semibold text-stone-800 mb-3">
                     Current Focus
                   </Typography>
@@ -230,16 +230,7 @@ export const BioSection: React.FC = () => {
                   </div>
                 </div>
 
-                <Button
-                href={personalInfo.linkedIn}
-                external
-                variant="primary"
-                size="lg"
-                mono
-                className="mt-8 rounded-full"
-              >
-                Connect_with_me
-              </Button>
+              
             </motion.div>
           </div>
         </motion.div>
@@ -352,7 +343,7 @@ export const EducationSection: React.FC = () => {
                 className="space-y-4 border-l-2 border-stone-200 pl-6 relative"
               >
                 <div className="absolute -left-2 top-0 w-4 h-4 bg-stone-400 rounded-full" />
-                <Typography variant="h4" className="font-semibold">
+                <Typography variant="h4" className="font-semibold break-words">
                   {edu.degree}
                 </Typography>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 space-y-2 sm:space-y-0">

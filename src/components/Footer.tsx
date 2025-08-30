@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
           // Let's Connect
         </p>
         <p className="text-lg text-stone-600 mb-6 font-medium">
-          Want to work together or chat about animation? Feel free to reach out!
+        Chat anything about Virtual Production or Unreal engine
         </p>
 
         <Button
@@ -24,12 +24,12 @@ const Footer: React.FC = () => {
           mono
           className="rounded-full"
         >
-          Connect_with_me
+          Connect with me
         </Button>
 
         <p className="text-xs font-mono text-stone-400 mt-8 tracking-wider">
           &copy; {currentYear} {personalInfo.name.replace(" ", "_")} •
-          Built_with_passion
+          Built with passion
         </p>
       </div>
     </footer>
