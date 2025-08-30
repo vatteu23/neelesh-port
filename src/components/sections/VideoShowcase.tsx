@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Container from "../Container";
 
 interface VideoShowcaseProps {
   videoUrl: string;
@@ -16,7 +17,7 @@ const VideoShowcase: React.FC<VideoShowcaseProps> = ({
   const [hasError, setHasError] = useState(false);
 
   return (
-    <div className={`pt-12 pb-24 lg:px-12 ${className}`} id="demo">
+    <Container className={`pt-12 pb-24 ${className}`} id="demo">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -54,7 +55,7 @@ const VideoShowcase: React.FC<VideoShowcaseProps> = ({
           />
         </div>
       </motion.div>
-    </div>
+    </Container>
   );
 };
 

@@ -20,15 +20,15 @@ const Card: React.FC<CardProps> = ({
   const baseClasses = cn(
     "rounded-2xl transition-colors duration-200 ease-in-out",
     {
-      "bg-white border border-stone-300/30": variant === "default",
-      "bg-white border-2 border-stone-300": variant === "bordered",
-      "bg-white shadow-lg border border-stone-200/50": variant === "elevated",
+      "bg-gradient-to-br from-stone-50 to-stone-200 border border-stone-200": variant === "default",
+      "bg-gradient-to-b from-stone-50 to-stone-200 border-2 border-stone-300": variant === "bordered",
+      "bg-gradient-to-b from-stone-50 to-stone-200 shadow-lg border border-stone-200/50": variant === "elevated",
     },
     {
       "p-0": padding === "none",
       "p-4": padding === "sm",
       "p-6 md:p-8": padding === "md",
-      "p-8 md:p-12": padding === "lg",
+      "p-4 py-12 md:p-12": padding === "lg",
     },
     hover && "hover:border-stone-400/50 hover:shadow-lg",
     className

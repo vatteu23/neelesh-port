@@ -26,7 +26,7 @@ const staggerContainer: Variants = {
 const SkillsOverview: React.FC = () => {
   return (
     <Container className="mb-24">
-      <Card variant="bordered" padding="lg">
+      <Card variant="default" padding="lg">
         <section className="text-stone-800">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
