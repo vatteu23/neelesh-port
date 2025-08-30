@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
       {/* Animated background pattern */}
 
       <div className="flex md:flex-row flex-col gap-6 h-full w-full">
-        <div className="md:w-2/3 w-full bg-gradient-to-br from-stone-50 to-stone-300 min-h-[40vh]  relative z-10 rounded-3xl flex py-12 p-4 md:p-12 flex-col justify-between ">
+        <div className="md:w-2/3 w-full bg-gradient-to-br from-stone-50 to-stone-300 min-h-[40vh]  relative z-10 rounded-3xl flex py-12 p-4 md:p-12 flex-col justify-between gap-y-12">
           {/* <motion.div
           variants={staggerContainer}
           initial="initial"
