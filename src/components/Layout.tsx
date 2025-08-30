@@ -1,9 +1,9 @@
 import React from "react";
-import { Inter_Tight } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 
-const inter = Inter_Tight({
+const inter = IBM_Plex_Sans({
   weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",

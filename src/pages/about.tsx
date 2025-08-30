@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import HeadWithMetas from "@/components/HeadWithMetas";
 import SkillsOverview from "@/components/sections/SkillsOverview";
 import {
+  AboutHero,
   BioSection,
   ExperienceSection,
   EducationSection,
@@ -18,6 +19,7 @@ export default function About() {
         url={`${siteMetadata.siteUrl}/about`}
       />
 
+      <AboutHero />
       <BioSection />
       <SkillsOverview />
       <ExperienceSection />

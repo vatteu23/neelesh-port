@@ -26,6 +26,125 @@ const staggerContainer: Variants = {
   },
 };
 
+// About Hero Section Component
+export const AboutHero: React.FC = () => {
+  return (
+    <div className="flex items-center !mt-4 m-4 md:m-12 !mb-0 bg-gradient-to-br relative overflow-hidden md:p-8 rounded-2xl">
+      <div className="flex md:flex-row flex-col gap-6 h-full w-full">
+        {/* Left Section - Personal Story & Journey */}
+        <div className="md:w-2/3 w-full bg-gradient-to-br from-stone-50 to-stone-300 min-h-[40vh] relative z-10 rounded-3xl flex py-12 p-4 md:p-12 flex-col justify-between">
+          <div>
+            <Typography
+              variant="h1"
+              wrapper="h1"
+              className="mb-6 font-bold tracking-tight"
+              color="primary"
+            >
+              My{" "}
+              <span className="bg-gradient-to-r from-stone-800 to-stone-600 bg-clip-text text-transparent">
+                Journey
+              </span>
+            </Typography>
+            <Typography
+              variant="p"
+              color="secondary"
+              className="leading-relaxed text-lg text-stone-600 mb-6"
+            >
+              From traditional VFX at Matrix VFX on major Indian films to cutting-edge Virtual Production at Humber & Seneca. A Silver Medal graduate with a passion for real-time storytelling.
+            </Typography>
+            <Typography
+              variant="small"
+              mono
+              className="text-stone-500 tracking-widest uppercase text-sm md:text-base"
+            >
+              [ BFA SILVER MEDAL • 3D ANIMATION • VIRTUAL PRODUCTION • UNREAL ENGINE ]
+            </Typography>
+          </div>
+          
+          <div className="flex flex-row gap-4">
+            <Button
+              variant="outline"
+              size="md"
+              mono
+              href={personalInfo.linkedIn}
+              external
+              className="w-full sm:w-auto"
+            >
+              Connect_with_Me
+            </Button>
+            <Button
+              variant="primary"
+              size="md"
+              color="primary"
+              mono
+              href="/work"
+              className="w-full sm:w-auto"
+            >
+              View_My_Work
+            </Button>
+          </div>
+        </div>
+
+        {/* Right Section - Interactive Career Highlights */}
+        <div className="md:w-1/3 w-full flex flex-col min-h-[50vh] group">
+          <div className="flex gap-4 flex-1 transition-all duration-500 group-hover:flex-[0.6]">
+            <div className="w-1/2 bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4">
+              <Typography variant="small" className="text-stone-600 font-medium mb-2 text-sm">
+                Major Films
+              </Typography>
+              <Typography variant="h2" className="text-stone-800 font-semibold text-3xl">
+                6+
+              </Typography>
+              <Typography variant="small" className="text-stone-500 text-xs mt-1">
+                Skanda, Kushi, Bhagavanth Kesari
+              </Typography>
+            </div>
+            <div className="w-1/2 bg-gradient-to-br from-stone-200 to-stone-300 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4">
+              <Typography variant="small" className="text-stone-600 font-medium mb-2 text-sm">
+                VP Projects
+              </Typography>
+              <Typography variant="h2" className="text-stone-800 font-semibold text-3xl">
+                3
+              </Typography>
+              <Typography variant="small" className="text-stone-500 text-xs mt-1">
+                Screech, No Signal, SAPPED
+              </Typography>
+            </div>
+          </div>
+          <div className="mt-4 bg-gradient-to-br from-stone-300 to-stone-400 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4 flex-1">
+            <Typography variant="small" className="text-stone-600 font-medium mb-2 text-sm">
+              Education
+            </Typography>
+            <Typography variant="h2" className="text-stone-800 font-semibold text-3xl">
+              4
+            </Typography>
+            <Typography variant="small" className="text-stone-500 text-xs mt-1">
+              Degrees & Certificates
+            </Typography>
+          </div>
+          
+          {/* CTA pill that appears below the pills on hover */}
+          <div className="bg-gradient-to-br mt-4 md:mt-0 group-hover:mt-4 from-stone-400 to-stone-500 rounded-2xl p-4 md:p-0 group-hover:p-4 h-[100px] md:h-0 opacity-100 md:opacity-0 group-hover:h-[100px] cursor-pointer group-hover:opacity-100 transition-all duration-500 ease-out overflow-hidden" onClick={() => window.location.href = '/projects'}>
+            <div className="flex items-center justify-between h-full">
+              <div>
+                <Typography variant="small" className="text-stone-100 font-medium mb-1 text-sm">
+                  Explore
+                </Typography>
+                <Typography variant="h3" className="text-white font-semibold text-2xl">
+                  My projects
+                </Typography>
+              </div>
+              <Typography variant="small" className="text-stone-200 text-lg">
+                →
+              </Typography>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Bio Section Component
 export const BioSection: React.FC = () => {
   return (
@@ -43,7 +162,7 @@ export const BioSection: React.FC = () => {
             <motion.div variants={fadeInUp} className="w-full md:w-1/3">
               <div className="relative group">
                 <Image
-                  src="/images/profile.jpeg"
+                  src="/images/profile.webp"
                   alt={`${personalInfo.name} - Profile Picture`}
                   width={400}
                   height={400}
@@ -66,7 +185,7 @@ export const BioSection: React.FC = () => {
                 >
                   // A Little About Me
                 </Typography>
-                <div className="w-20 h-1 bg-gradient-to-r from-stone-400 to-stone-600 rounded-full"></div>
+              
               </div>
 
               <div className="space-y-6">
@@ -78,45 +197,40 @@ export const BioSection: React.FC = () => {
                   {personalInfo.bio}
                 </Typography>
 
-                {/* Key highlights */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-6">
-                  <div className="text-center p-4 bg-stone-50 rounded-xl border border-stone-200">
-                    <Typography
-                      variant="h4"
-                      className="font-black text-stone-800"
-                    >
-                      2+
-                    </Typography>
-                    <Typography variant="small" className="text-stone-600">
-                      Years Experience
-                    </Typography>
+                {/* Key highlights - Redesigned for better visual hierarchy */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-6">
+                  <div className="text-center p-6 bg-gradient-to-br from-stone-50 to-stone-100 rounded-xl border border-stone-200 hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                    <div className="text-3xl font-bold text-stone-800 mb-2">2+</div>
+                    <div className="text-sm font-medium text-stone-600">Years Experience</div>
+                    <div className="text-xs text-stone-500 mt-1">Matrix VFX → Canada</div>
                   </div>
-                  <div className="text-center p-4 bg-stone-50 rounded-xl border border-stone-200">
-                    <Typography
-                      variant="h4"
-                      className="font-black text-stone-800"
-                    >
-                      6+
-                    </Typography>
-                    <Typography variant="small" className="text-stone-600">
-                      Major Films
-                    </Typography>
+                  <div className="text-center p-6 bg-gradient-to-br from-stone-100 to-stone-200 rounded-xl border border-stone-200 hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                    <div className="text-3xl font-bold text-stone-800 mb-2">6+</div>
+                    <div className="text-sm font-medium text-stone-600">Major Films</div>
+                    <div className="text-xs text-stone-500 mt-1">Skanda, Kushi, Bhagavanth</div>
                   </div>
-                  <div className="text-center p-4 bg-stone-50 rounded-xl border border-stone-200">
-                    <Typography
-                      variant="h4"
-                      className="font-black text-stone-800"
-                    >
-                      3
-                    </Typography>
-                    <Typography variant="small" className="text-stone-600">
-                      VP Short Films
-                    </Typography>
+                  <div className="text-center p-6 bg-gradient-to-br from-stone-200 to-stone-300 rounded-xl border border-stone-200 hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                    <div className="text-3xl font-bold text-stone-800 mb-2">3</div>
+                    <div className="text-sm font-medium text-stone-600">VP Projects</div>
+                    <div className="text-xs text-stone-500 mt-1">Screech, No Signal, SAPPED</div>
                   </div>
                 </div>
-              </div>
+                              </div>
 
-              <Button
+                {/* Skills highlight */}
+                <div className="bg-stone-50 rounded-xl p-6 border border-stone-200">
+                  <Typography variant="h4" className="font-semibold text-stone-800 mb-3">
+                    Current Focus
+                  </Typography>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-medium">VP Engine Operations</span>
+                    <span className="px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-medium">LED Wall Management</span>
+                    <span className="px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-medium">Virtual Art Department</span>
+                    <span className="px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-medium">Real-time Compositing</span>
+                  </div>
+                </div>
+
+                <Button
                 href={personalInfo.linkedIn}
                 external
                 variant="primary"

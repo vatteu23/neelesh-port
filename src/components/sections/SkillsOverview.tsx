@@ -57,15 +57,13 @@ const SkillsOverview: React.FC = () => {
                 variants={fadeInUp}
                 className="group relative"
               >
-                {/* Enhanced border line */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-stone-300 to-stone-400 group-hover:from-stone-400 group-hover:to-stone-500 transition-all duration-300 rounded-full"></div>
-
+              
                 <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-8 pl-8 pr-6 py-6">
                   {/* Bold Number */}
                   <div className="flex-shrink-0">
                     <Typography
                       variant="h2"
-                      className="font-black text-4xl md:text-5xl text-stone-600 group-hover:text-stone-900 transition-colors leading-none"
+                      className="font-black text-4xl md:text-5xl text-stone-200 group-hover:text-stone-900 transition-all duration-300 ease-in-out leading-none"
                     >
                       {String(index + 1).padStart(2, "0")}
                     </Typography>
