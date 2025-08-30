@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Container from "./Container";
 import Button from "./ui/Button";
 import { navigationItems } from "@/data/portfolio";
+import { Menu, X } from "lucide-react";
 
 const Navigation: React.FC = () => {
   const router = useRouter();
@@ -14,6 +15,39 @@ const Navigation: React.FC = () => {
       return router.pathname === "/";
     }
     return router.pathname === href;
+  };
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 500, damping: 35 },
+    },
   };
 
   return (
@@ -35,9 +69,9 @@ const Navigation: React.FC = () => {
           />
         </Link>
 
-        {/* Navigation */}
+        {/* Desktop Navigation */}
         <nav
-          className="flex items-center gap-x-1 sm:gap-x-2"
+          className="hidden md:flex items-center gap-x-1 sm:gap-x-2"
           role="navigation"
           aria-label="Main navigation"
         >
@@ -88,7 +122,99 @@ const Navigation: React.FC = () => {
             Resume
           </Button>
         </nav>
+
+        {/* Mobile Hamburger */}
+        <div className="md:hidden">
+          <button
+            type="button"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen((v) => !v)}
+            className="p-2 rounded-md text-stone-700 hover:text-stone-900 hover:bg-stone-100 active:scale-95 transition"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </Container>
+
+      {/* Mobile Fullscreen Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop with subtle blur */}
+            <motion.div
+              key="backdrop"
+              className="fixed inset-0 z-[998] bg-white/40 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-hidden
+            />
+
+            {/* Sliding drawer */}
+            <motion.aside
+              key="mobile-menu"
+              className="fixed inset-0 w-screen h-dvh z-[999] overflow-y-auto bg-gradient-to-br from-stone-100 to-stone-400"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 260, damping: 30 }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile menu"
+            >
+              <div className="min-h-dvh w-full relative flex items-center justify-center px-6 pt-[max(env(safe-area-inset-top),1rem)] pb-[max(env(safe-area-inset-bottom),1rem)]">
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="absolute top-4 right-4 p-2 rounded-md text-stone-700 hover:text-stone-900 hover:bg-stone-100 active:scale-95 transition"
+                >
+                  <X size={24} />
+                </button>
+
+                {/* Menu items */}
+                <motion.ul
+                  className="w-full max-w-md flex flex-col items-center gap-6"
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="show"
+                >
+                  {navigationItems.map((item) => (
+                    <motion.li key={item.href} variants={itemVariants} className="w-full">
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`block w-full text-center py-2 text-3xl sm:text-4xl font-semibold tracking-wide ${
+                          isActive(item.href) ? "text-stone-900" : "text-stone-700 hover:text-stone-900"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.li>
+                  ))}
+
+                  {/* Resume button inside mobile menu */}
+                  <motion.li variants={itemVariants} className="w-full pt-2">
+                    <Button
+                      href="/resume.pdf"
+                      external
+                      variant="primary"
+                      size="lg"
+                      mono
+                      className="w-full justify-center py-3 text-base"
+                    >
+                      Resume
+                    </Button>
+                  </motion.li>
+                </motion.ul>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
