@@ -4,9 +4,10 @@ import HeadWithMetas from "@/components/HeadWithMetas";
 import SkillsOverview from "@/components/sections/SkillsOverview";
 import {
   AboutHero,
-  BioSection,
+
   ExperienceSection,
   EducationSection,
+  BioGridSection,
 } from "@/components/sections/AboutSections";
 import { siteMetadata } from "@/data/portfolio";
 
@@ -20,7 +21,7 @@ export default function About() {
       />
 
       <AboutHero />
-      <BioSection />
+      <BioGridSection />
       <SkillsOverview />
       <ExperienceSection />
       <EducationSection />

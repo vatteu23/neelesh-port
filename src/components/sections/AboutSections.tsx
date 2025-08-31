@@ -145,99 +145,6 @@ export const AboutHero: React.FC = () => {
   );
 };
 
-// Bio Section Component
-export const BioSection: React.FC = () => {
-  return (
-    <Section>
-      <Container>
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          className="mb-24"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-16 md:space-y-0 md:space-x-20">
-            {/* Profile Image */}
-            <motion.div variants={fadeInUp} className="w-full md:w-1/3">
-              <div className="relative group">
-                <Image
-                  src="/images/profile.webp"
-                  alt={`${personalInfo.name} - Profile Picture`}
-                  width={600}
-                  height={600}
-                  className="rounded-2xl border-2 border-stone-300/30 transition-transform transform w-full"
-                  priority
-                />
-              </div>
-            </motion.div>
-
-            {/* Enhanced Bio Content */}
-            <motion.div
-              variants={fadeInUp}
-              className="w-full md:w-2/3 space-y-8"
-            >
-              <div className="space-y-4">
-                <Typography
-                  variant="small"
-                  mono
-                  className="mono-section-header mb-2"
-                >
-                  // A Little About Me
-                </Typography>
-              
-              </div>
-
-              <div className="space-y-6">
-                <Typography
-                  variant="p"
-                  color="secondary"
-                  className="leading-relaxed text-lg text-stone-600"
-                >
-                  {personalInfo.bio}
-                </Typography>
-
-                {/* Key highlights - Redesigned for better visual hierarchy */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-6">
-                  <div className="text-center p-6 bg-gradient-to-br from-stone-50 to-stone-100 rounded-xl border border-stone-200 transition-all duration-300 ">
-                    <div className="text-3xl font-bold text-stone-800 mb-2">2+</div>
-                    <div className="text-sm font-medium text-stone-600">Years Experience</div>
-                    <div className="text-xs text-stone-500 mt-1">Matrix VFX → Canada</div>
-                  </div>
-                  <div className="text-center p-6 bg-gradient-to-br from-stone-100 to-stone-200 rounded-xl border border-stone-200 transition-all duration-300 ">
-                    <div className="text-3xl font-bold text-stone-800 mb-2">6+</div>
-                    <div className="text-sm font-medium text-stone-600">Major Films</div>
-                    <div className="text-xs text-stone-500 mt-1">Skanda, Kushi, Bhagavanth</div>
-                  </div>
-                  <div className="text-center p-6 bg-gradient-to-br from-stone-200 to-stone-300 rounded-xl border border-stone-200 transition-all duration-300">
-                    <div className="text-3xl font-bold text-stone-800 mb-2">3</div>
-                    <div className="text-sm font-medium text-stone-600">VP Projects</div>
-                    <div className="text-xs text-stone-500 mt-1">Screech, No Signal, SAPPED</div>
-                  </div>
-                </div>
-                              </div>
-
-                {/* Skills highlight */}
-                <div className="bg-gradient-to-br from-stone-50 to-stone-100 rounded-xl p-6 border border-stone-200">
-                  <Typography variant="h4" className="font-semibold text-stone-800 mb-3">
-                    Current Focus
-                  </Typography>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-medium">VP Engine Operations</span>
-                    <span className="px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-medium">LED Wall Management</span>
-                    <span className="px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-medium">Virtual Art Department</span>
-                    <span className="px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-sm font-medium">Real-time Compositing</span>
-                  </div>
-                </div>
-
-              
-            </motion.div>
-          </div>
-        </motion.div>
-      </Container>
-    </Section>
-  );
-};
 
 // Experience Section Component
 export const ExperienceSection: React.FC = () => {
@@ -378,5 +285,76 @@ export const EducationSection: React.FC = () => {
         </div>
       </Container>
     </Section>
+  );
+};
+
+// Grid-style Bio Section (photo, copy, and highlight boxes)
+export const BioGridSection: React.FC = () => {
+  return (
+      <Container className="py-12 md:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Photo */}
+          <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-stone-100 to-stone-200">
+            <Image
+              src="/images/profile.webp"
+              alt={`${personalInfo.name} - Profile Picture`}
+              width={1000}
+              height={1000}
+              className="w-full h-full object-cover aspect-square md:aspect-auto"
+              priority
+            />
+          </div>
+
+          {/* Bio copy */}
+          <div className="md:col-span-2 rounded-2xl bg-gradient-to-br from-stone-100 to-stone-200 p-6 md:p-8 flex flex-col justify-between">
+            <div>
+              <Typography variant="h3" className="mb-3 font-bold tracking-tight">
+                About Me
+              </Typography>
+              <Typography variant="p" color="secondary" className="leading-relaxed">
+                {personalInfo.bio}
+              </Typography>
+            </div>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <Button variant="primary" size="md" mono href="/work" className="sm:w-auto">
+                View my work
+              </Button>
+              <Button
+                variant="outline"
+                size="md"
+                mono
+                href={personalInfo.linkedIn}
+                external
+                className="sm:w-auto"
+              >
+                Connect on LinkedIn
+              </Button>
+            </div>
+          </div>
+
+          {/* Highlights */}
+          <div className="rounded-2xl p-6 bg-gradient-to-br from-stone-50 to-stone-100">
+            <Typography variant="small" className="text-stone-600 font-medium mb-2">
+              Years Experience
+            </Typography>
+            <Typography variant="h2" className="text-stone-800 font-semibold">2+</Typography>
+          </div>
+
+          <div className="rounded-2xl p-6 bg-gradient-to-br from-stone-100 to-stone-200">
+            <Typography variant="small" className="text-stone-600 font-medium mb-2">
+              Major Films
+            </Typography>
+            <Typography variant="h2" className="text-stone-800 font-semibold">6+</Typography>
+          </div>
+
+          <div className="rounded-2xl p-6 bg-gradient-to-br from-stone-200 to-stone-300">
+            <Typography variant="small" className="text-stone-600 font-medium mb-2">
+              VP Projects
+            </Typography>
+            <Typography variant="h2" className="text-stone-800 font-semibold">3</Typography>
+          </div>
+        </div>
+      </Container>
+    
   );
 };
