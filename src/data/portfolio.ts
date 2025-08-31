@@ -183,67 +183,6 @@ export const portfolioWork: WorkCategory[] = [
     ],
   },
   {
-    category: "Unreal_Engine_Works",
-    items: [],
-    subcategories: [
-      {
-        name: "Cinematic_Projects",
-        items: [
-          {
-            type: "video",
-            title: "Lamborghini Cinematic",
-            url: "https://youtu.be/ZDcCU7c6P5U",
-          },
-          {
-            type: "video",
-            title: "Niagara Portal",
-            url: "https://youtu.be/FplOeruFBko",
-          },
-        ],
-      },
-      {
-        name: "Technical_Projects",
-        items: [
-          {
-            type: "project",
-            title: "Beach Date",
-            description: "Interactive virtual environment project",
-          },
-          {
-            type: "project",
-            title: "Pandora: The Unreal World",
-            description: "Immersive world-building project",
-          },
-          {
-            type: "project",
-            title: "Substrate Materials",
-            description: "Advanced material system development",
-          },
-          {
-            type: "project",
-            title: "Blueprinting",
-            description: "Visual scripting and game logic systems",
-          },
-          {
-            type: "project",
-            title: "Auto Materials",
-            description: "Automated material generation workflow",
-          },
-          {
-            type: "project",
-            title: "PCG",
-            description: "Procedural Content Generation systems",
-          },
-          {
-            type: "project",
-            title: "RE-Targeting and Sequencer",
-            description: "Animation retargeting and cinematic sequencing",
-          },
-        ],
-      },
-    ],
-  },
-  {
     category: "Animations",
     items: [
       {
