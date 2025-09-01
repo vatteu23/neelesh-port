@@ -80,7 +80,7 @@ export const allProjects: Project[] = [
     title: "Pandora World",
     description: "An open-world environment with procedural terrain generation and dynamic weather systems.",
     category: "Unreal Engine",
-    videoUrl: "https://vimeo.com/1082915708",
+    videoUrl: "https://youtu.be/31PzNWJy874",
     thumbnailUrl: "/projects/pandora-world/1.png",
     tools: ["Unreal Engine 5", "World Creator", "Houdini", "Substance"],
     year: "2024",

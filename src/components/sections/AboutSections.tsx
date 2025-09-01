@@ -32,7 +32,7 @@ export const AboutHero: React.FC = () => {
     <div className="flex items-center  bg-gradient-to-br relative overflow-hidden py-8 rounded-2xl">
       <Container className="flex md:flex-row flex-col gap-6 h-full w-full">
         {/* Left Section - Personal Story & Journey */}
-        <div className="md:w-2/3 w-full bg-gradient-to-br from-stone-50 to-stone-300 min-h-[40vh] relative z-10 rounded-3xl flex py-12 p-4 md:p-12 flex-col gap-y-12 justify-between">
+        <div className="md:w-2/3 w-full bg-gradient-to-br border border-stone-200 from-stone-50 to-stone-300 min-h-[40vh] relative z-10 rounded-3xl flex py-12 p-4 md:p-12 flex-col gap-y-12 justify-between">
           <div>
             <Typography
               variant="h1"
@@ -88,7 +88,7 @@ export const AboutHero: React.FC = () => {
         {/* Right Section - Interactive Career Highlights */}
         <div className="md:w-1/3 w-full flex flex-col min-h-[50vh] group">
           <div className="flex gap-4 flex-1 transition-all duration-500 group-hover:flex-[0.6]">
-            <div className="w-1/2 bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4">
+            <div className="w-1/2  border border-stone-200 bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4">
               <Typography variant="small" className="text-stone-600 font-medium mb-2 text-sm">
                 Major Films
               </Typography>
@@ -99,7 +99,7 @@ export const AboutHero: React.FC = () => {
                 Skanda, Kushi, Bhagavanth Kesari
               </Typography>
             </div>
-            <div className="w-1/2 bg-gradient-to-br from-stone-200 to-stone-300 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4">
+            <div className="w-1/2  border border-stone-300 bg-gradient-to-br from-stone-200 to-stone-300 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4">
               <Typography variant="small" className="text-stone-600 font-medium mb-2 text-sm">
                 VP Projects
               </Typography>
@@ -111,7 +111,7 @@ export const AboutHero: React.FC = () => {
               </Typography>
             </div>
           </div>
-          <div className="mt-4 bg-gradient-to-br from-stone-300 to-stone-400 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4 flex-1">
+          <div className="mt-4  border border-stone-400 bg-gradient-to-br from-stone-100 to-stone-400 rounded-2xl transition-all duration-300 flex flex-col justify-center p-4 flex-1">
             <Typography variant="small" className="text-stone-600 font-medium mb-2 text-sm">
               Education
             </Typography>
@@ -124,7 +124,7 @@ export const AboutHero: React.FC = () => {
           </div>
           
           {/* CTA pill that appears below the pills on hover */}
-          <div className="bg-gradient-to-br mt-4 md:mt-0 group-hover:mt-4 from-stone-400 to-stone-500 rounded-2xl p-4 md:p-0 group-hover:p-4 h-[100px] md:h-0 opacity-100 md:opacity-0 group-hover:h-[100px] cursor-pointer group-hover:opacity-100 transition-all duration-500 ease-out overflow-hidden" onClick={() => window.location.href = '/projects'}>
+          <div className="border border-stone-400 bg-gradient-to-br mt-4 md:mt-0 group-hover:mt-4 from-stone-300 to-stone-500 rounded-2xl p-4 md:p-0 group-hover:p-4 h-[100px] md:h-0 opacity-100 md:opacity-0 group-hover:h-[100px] cursor-pointer group-hover:opacity-100 transition-all duration-500 ease-out overflow-hidden" onClick={() => window.location.href = '/projects'}>
             <div className="flex items-center justify-between h-full">
               <div>
                 <Typography variant="small" className="text-stone-100 font-medium mb-1 text-sm">
@@ -306,7 +306,7 @@ export const BioGridSection: React.FC = () => {
           </div>
 
           {/* Bio copy */}
-          <div className="md:col-span-2 rounded-2xl bg-gradient-to-br from-stone-100 to-stone-200 p-6 md:p-8 flex flex-col justify-between">
+          <div className="md:col-span-2 rounded-2xl border border-stone-200 bg-gradient-to-br from-stone-100 to-stone-200 p-6 md:p-8 flex flex-col justify-between">
             <div>
               <Typography variant="h3" className="mb-3 font-bold tracking-tight">
                 About Me
@@ -332,27 +332,6 @@ export const BioGridSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Highlights */}
-          <div className="rounded-2xl p-6 bg-gradient-to-br from-stone-50 to-stone-100">
-            <Typography variant="small" className="text-stone-600 font-medium mb-2">
-              Years Experience
-            </Typography>
-            <Typography variant="h2" className="text-stone-800 font-semibold">2+</Typography>
-          </div>
-
-          <div className="rounded-2xl p-6 bg-gradient-to-br from-stone-100 to-stone-200">
-            <Typography variant="small" className="text-stone-600 font-medium mb-2">
-              Major Films
-            </Typography>
-            <Typography variant="h2" className="text-stone-800 font-semibold">6+</Typography>
-          </div>
-
-          <div className="rounded-2xl p-6 bg-gradient-to-br from-stone-200 to-stone-300">
-            <Typography variant="small" className="text-stone-600 font-medium mb-2">
-              VP Projects
-            </Typography>
-            <Typography variant="h2" className="text-stone-800 font-semibold">3</Typography>
-          </div>
         </div>
       </Container>
     
