@@ -77,7 +77,7 @@ export const AboutHero: React.FC = () => {
               size="sm"
               color="primary"
               mono
-              href="/work"
+              href="/projects"
               className="w-full sm:w-auto"
             >
               View my work
@@ -316,7 +316,7 @@ export const BioGridSection: React.FC = () => {
               </Typography>
             </div>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Button variant="primary" size="md" mono href="/work" className="sm:w-auto">
+              <Button variant="primary" size="md" mono href="/projects" className="sm:w-auto">
                 View my work
               </Button>
               <Button

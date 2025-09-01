@@ -63,7 +63,6 @@ export const personalInfo = {
 export const navigationItems: NavigationItem[] = [
   { href: "/", label: "/home" },
   { href: "/about", label: "/about" },
-  { href: "/work", label: "/work" },
   { href: "/projects", label: "/projects" },
 ];
 
